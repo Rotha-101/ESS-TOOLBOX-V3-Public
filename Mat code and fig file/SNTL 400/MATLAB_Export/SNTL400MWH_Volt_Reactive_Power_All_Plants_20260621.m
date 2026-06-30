@@ -1,0 +1,159 @@
+
+% MATLAB Script for Volt & Reactive Power (All Plants)
+% Make sure to place the JSON data file in the same directory as this script.
+if ~exist('SAVE_FIG_AND_CLOSE', 'var')
+    SAVE_FIG_AND_CLOSE = false;
+end
+
+dataFilename = 'evalData.json';
+fid = fopen(dataFilename, 'r');
+if fid < 0
+    error('Could not open %s', dataFilename);
+end
+raw = fread(fid, '*char')';
+fclose(fid);
+data = jsondecode(raw);
+
+% Convert timestamps
+t = datetime(data.timestamps, 'InputFormat', 'yyyy-MM-dd''T''HH:mm:ss.SSSZ', 'TimeZone', 'UTC');
+t.TimeZone = 'local';
+
+% Define Colors
+cmdColor = [0.8500 0.3250 0.0980];
+cmdQColor = [0 0 0];
+remotePowerColor = [0.45 0.10 0.65];
+dispatchColor = [0.20 0.60 0.20];
+vabColor = [0.000 0.447 0.741];
+vbcColor = [0.466 0.674 0.188];
+vcaColor = [0.494 0.184 0.556];
+
+% Centers
+P_center_MW = 0;
+F_center = 50;
+Q_center_MVar = 0;
+
+fig = figure('Name', 'Volt & Reactive Power (All Plants)', 'NumberTitle', 'off', 'Position', [100, 100, 1200, 800]);
+if true
+    set(fig, 'Color', 'w');
+else
+    set(fig, 'Color', [0.1 0.1 0.18]);
+end
+if SAVE_FIG_AND_CLOSE
+    set(fig, 'Visible', 'off');
+end
+
+tlo = tiledlayout(2, 1, 'TileSpacing', 'compact', 'Padding', 'compact');
+title(tlo, 'Volt & Reactive Power (All Plants)', 'FontWeight', 'bold', 'FontSize', 12);
+
+axs = [];
+
+% --- Plant: plant1 ---
+ax = nexttile; axs = [axs, ax];
+vab = data.vab.plant1;
+vbc = data.vbc.plant1;
+vca = data.vca.plant1;
+qTotal = data.qTotal.plant1;
+cmdQ = data.cmdQ.plant1;
+
+yyaxis left; ax.YColor = '#0072BD'; hold on;
+pVab = plot(t, vab, '-', 'Color', vabColor, 'LineWidth', 2);
+pVbc = plot(t, vbc, '-', 'Color', vbcColor, 'LineWidth', 1.6);
+pVca = plot(t, vca, '-', 'Color', vcaColor, 'LineWidth', 1.6);
+ylabel('V (kV)');
+if true, grid on; end
+
+yyaxis right; ax.YColor = '#D95319'; hold on;
+legH = [pVab, pVbc, pVca]; legT = {'Vab', 'Vbc', 'Vca'};
+
+pQ = plot(t, qTotal, '-', 'Color', '#D95319', 'LineWidth', 1.8);
+legH(end+1) = pQ; legT{end+1} = 'Q total';
+yDataQ = qTotal(:);
+
+if any(~isnan(cmdQ))
+    pCmdQ = stairs(t, cmdQ, 'LineWidth', 1.6, 'Color', cmdQColor, 'LineStyle', '--');
+    legH(end+1) = pCmdQ; legT{end+1} = 'Q command from NCC';
+    yDataQ = [yDataQ; cmdQ(:)];
+end
+ylabel('Q (MVar)'); ylim(centeredYLim(yDataQ, Q_center_MVar, 1.05));
+
+title('SWG01 | Reactive Power & Voltage');
+legend(legH, legT, 'Location', 'northwest');
+formatAxis(ax, t, true);
+
+% --- Plant: plant2 ---
+ax = nexttile; axs = [axs, ax];
+vab = data.vab.plant2;
+vbc = data.vbc.plant2;
+vca = data.vca.plant2;
+qTotal = data.qTotal.plant2;
+cmdQ = data.cmdQ.plant2;
+
+yyaxis left; ax.YColor = '#0072BD'; hold on;
+pVab = plot(t, vab, '-', 'Color', vabColor, 'LineWidth', 2);
+pVbc = plot(t, vbc, '-', 'Color', vbcColor, 'LineWidth', 1.6);
+pVca = plot(t, vca, '-', 'Color', vcaColor, 'LineWidth', 1.6);
+ylabel('V (kV)');
+if true, grid on; end
+
+yyaxis right; ax.YColor = '#D95319'; hold on;
+legH = [pVab, pVbc, pVca]; legT = {'Vab', 'Vbc', 'Vca'};
+
+pQ = plot(t, qTotal, '-', 'Color', '#D95319', 'LineWidth', 1.8);
+legH(end+1) = pQ; legT{end+1} = 'Q total';
+yDataQ = qTotal(:);
+
+if any(~isnan(cmdQ))
+    pCmdQ = stairs(t, cmdQ, 'LineWidth', 1.6, 'Color', cmdQColor, 'LineStyle', '--');
+    legH(end+1) = pCmdQ; legT{end+1} = 'Q command from NCC';
+    yDataQ = [yDataQ; cmdQ(:)];
+end
+ylabel('Q (MVar)'); ylim(centeredYLim(yDataQ, Q_center_MVar, 1.05));
+
+title('SWG02 | Reactive Power & Voltage');
+legend(legH, legT, 'Location', 'northwest');
+formatAxis(ax, t, true);
+
+linkaxes(axs, 'x');
+
+% Helper function to balance Y-axes
+function yl = centeredYLim(yData, centerPoint, marginFactor)
+    if isempty(yData) || all(isnan(yData(:)))
+        yl = centerPoint + [-10 10];
+        return;
+    end
+    yMax = max(yData(:), [], 'omitnan');
+    yMin = min(yData(:), [], 'omitnan');
+    if isnan(yMax) || isnan(yMin)
+        yl = centerPoint + [-10 10];
+        return;
+    end
+    diffMax = abs(yMax - centerPoint);
+    diffMin = abs(yMin - centerPoint);
+    maxDiff = max(diffMax, diffMin);
+    if maxDiff == 0
+        maxDiff = 1;
+    end
+    yl = centerPoint + [-maxDiff maxDiff] * marginFactor;
+end
+
+% Helper function to format axes
+function formatAxis(ax, t, showLabels)
+    xlim(ax, [min(t) max(t)]);
+    try
+        ax.XTick = dateshift(min(t), 'start', 'minute', 0) : minutes(30) : max(t);
+    catch
+    end
+    if showLabels
+        xtickformat(ax, 'HH:mm');
+        xtickangle(ax, 45);
+    else
+        xticklabels(ax, {});
+    end
+end
+
+
+if SAVE_FIG_AND_CLOSE
+    savefig(fig, 'SNTL400MWH_Volt_Reactive_Power_All_Plants_20260621.fig');
+    close(fig);
+end
+

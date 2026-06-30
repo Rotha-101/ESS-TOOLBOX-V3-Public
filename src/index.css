@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    
+    --color-panel: var(--panel);
+    --color-surface: var(--surface);
+    --color-border-v: var(--border-v);
+    --color-accent-blue: var(--accent-blue);
+    
+    --radius-sm: 0.125rem;
+    --radius-md: 0.25rem;
+    --radius-lg: var(--radius);
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+    --radius-4xl: 2rem;
+}
+
+:root {
+    --background: #FFFFFF;
+    --foreground: #111827;
+    --card: #F9FAFB;
+    --card-foreground: #111827;
+    --popover: #FFFFFF;
+    --popover-foreground: #111827;
+    --primary: #00A3FF;
+    --primary-foreground: #FFFFFF;
+    --secondary: #F3F4F6;
+    --secondary-foreground: #111827;
+    --muted: rgba(0, 0, 0, 0.05);
+    --muted-foreground: rgba(0, 0, 0, 0.5);
+    --accent: #00A3FF;
+    --accent-foreground: #FFFFFF;
+    --destructive: #EF4444;
+    --border: rgba(0, 0, 0, 0.1);
+    --input: rgba(0, 0, 0, 0.1);
+    --ring: #00A3FF;
+    
+    --panel: #F9FAFB;
+    --surface: #FFFFFF;
+    --border-v: rgba(0, 0, 0, 0.1);
+    --accent-blue: #00A3FF;
+    
+    --chart-1: #00A3FF;
+    --chart-2: #22C55E;
+    --chart-3: #EAB308;
+    --chart-4: #EF4444;
+    --chart-5: #8B5CF6;
+    --radius: 0.25rem;
+    --sidebar: #F3F4F6;
+    --sidebar-foreground: #111827;
+    --sidebar-primary: #00A3FF;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: rgba(0, 0, 0, 0.05);
+    --sidebar-accent-foreground: #111827;
+    --sidebar-border: rgba(0, 0, 0, 0.1);
+    --sidebar-ring: #00A3FF;
+    --flow-track: rgba(15, 23, 42, 0.45);
+    --flow-dot: #0f172a;
+    --flow-dot-glow: rgba(15, 23, 42, 0.25);
+}
+
+.dark {
+    --background: #0A0B0D;
+    --foreground: #E0E0E0;
+    --card: #14161B;
+    --card-foreground: #E0E0E0;
+    --popover: #1C1F26;
+    --popover-foreground: #E0E0E0;
+    --primary: #00A3FF;
+    --primary-foreground: #FFFFFF;
+    --secondary: #14161B;
+    --secondary-foreground: #E0E0E0;
+    --muted: rgba(255, 255, 255, 0.05);
+    --muted-foreground: rgba(255, 255, 255, 0.5);
+    --accent: #00A3FF;
+    --accent-foreground: #FFFFFF;
+    --destructive: #EF4444;
+    --border: rgba(255, 255, 255, 0.1);
+    --input: rgba(255, 255, 255, 0.1);
+    --ring: #00A3FF;
+    
+    --panel: #14161B;
+    --surface: #1C1F26;
+    --border-v: rgba(255, 255, 255, 0.1);
+    --accent-blue: #00A3FF;
+
+    --chart-1: #00A3FF;
+    --chart-2: #22C55E;
+    --chart-3: #EAB308;
+    --chart-4: #EF4444;
+    --chart-5: #8B5CF6;
+    --sidebar: #14161B;
+    --sidebar-foreground: #E0E0E0;
+    --sidebar-primary: #00A3FF;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: rgba(255, 255, 255, 0.05);
+    --sidebar-accent-foreground: #E0E0E0;
+    --sidebar-border: rgba(255, 255, 255, 0.1);
+    --sidebar-ring: #00A3FF;
+    --flow-track: rgba(255, 255, 255, 0.45);
+    --flow-dot: #ffffff;
+    --flow-dot-glow: rgba(255, 255, 255, 0.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body, html {
+    @apply bg-background text-foreground text-xs overflow-hidden h-full w-full p-0 m-0;
+    }
+  html {
+    @apply font-sans;
+    }
+    
+  .grid-overlay {
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+.markdown-body {
+  @apply text-[13px] leading-relaxed;
+}
+
+.markdown-body p {
+  @apply mb-3 last:mb-0;
+}
+
+.markdown-body strong {
+  @apply font-bold text-foreground;
+}
+
+.markdown-body em {
+  @apply italic;
+}
+
+.markdown-body ul {
+  @apply list-disc list-outside ml-4 mb-3;
+}
+
+.markdown-body ol {
+  @apply list-decimal list-outside ml-4 mb-3;
+}
+
+.markdown-body li {
+  @apply mb-1;
+}
+
+.markdown-body code {
+  @apply font-mono text-[11px] bg-foreground/10 px-1.5 py-0.5 rounded text-accent-blue;
+}
+
+.markdown-body pre {
+  @apply bg-surface/50 border border-foreground/10 rounded-md p-3 mb-3 overflow-x-auto;
+}
+
+.markdown-body pre code {
+  @apply bg-transparent px-0 py-0 text-foreground text-[11px];
+}
+
+.markdown-body a {
+  @apply text-accent-blue hover:underline;
+}
+
+.markdown-body blockquote {
+  @apply border-l-2 border-accent-blue pl-3 text-foreground/70 italic mb-3;
+}
+
+.scrollbar-clean {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.55) rgba(15, 23, 42, 0.25);
+}
+
+.scrollbar-clean::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.scrollbar-clean::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-clean::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.22);
+}
+
+.scrollbar-clean::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.55);
+  border-radius: 9999px;
+  border: 2px solid rgba(15, 23, 42, 0.18);
+}
+
+.scrollbar-clean::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ── Energy Flow Animation ─────────────────────────────── */
+@keyframes slide-dots {
+  from {
+    background-position: 0px center;
+  }
+  to {
+    background-position: 7px center;
+  }
+}
+
+.energy-flow-track {
+  height: 4px;
+  width: 100%;
+  background-image: radial-gradient(circle, var(--flow-track) 30%, transparent 35%);
+  background-size: 7px 4px;
+  background-repeat: repeat-x;
+  background-position: 0px center;
+  animation: slide-dots 0.5s linear infinite;
+}
+
+.dark .energy-flow-track {
+  filter: drop-shadow(0 0 1px var(--flow-dot-glow));
+}
+
+.energy-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.energy-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--flow-track);
+  background: var(--card);
+  color: #64748b;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark .energy-icon-box {
+  color: #94a3b8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.energy-icon-container:hover .energy-icon-box {
+  border-color: var(--flow-dot);
+  color: var(--flow-dot);
+  transform: translateY(-1px);
+  box-shadow: 0 0 8px var(--flow-dot-glow);
+}
+
+.energy-icon-label {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  color: #64748b;
+  transition: color 0.2s ease-in-out;
+}
+
+.dark .energy-icon-label {
+  color: #64748b;
+}
+
+.energy-icon-container:hover .energy-icon-label {
+  color: var(--flow-dot);
+}
+
+/* Pulse animation for active/pulsing parts */
+.solar-ray-pulse {
+  animation: solar-ray-pulse-animation 2s ease-in-out infinite;
+}
+
+@keyframes solar-ray-pulse-animation {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); transform-origin: center; }
+  50% { opacity: 1; transform: scale(1.1); transform-origin: center; }
+}
+
+.battery-seg-1 { animation: battery-charge-1 2s step-end infinite; }
+.battery-seg-2 { animation: battery-charge-2 2s step-end infinite; }
+.battery-seg-3 { animation: battery-charge-3 2s step-end infinite; }
+
+@keyframes battery-charge-1 {
+  0%, 100% { opacity: 0.2; }
+  25% { opacity: 1; }
+  50% { opacity: 1; }
+  75% { opacity: 1; }
+}
+
+@keyframes battery-charge-2 {
+  0%, 100% { opacity: 0.2; }
+  25% { opacity: 0.2; }
+  50% { opacity: 1; }
+  75% { opacity: 1; }
+}
+
+@keyframes battery-charge-3 {
+  0%, 100% { opacity: 0.2; }
+  25% { opacity: 0.2; }
+  50% { opacity: 0.2; }
+  75% { opacity: 1; }
+}
+
+.grid-tower-pulse {
+  animation: grid-tower-pulse-animation 2.2s ease-in-out infinite;
+}
+
+@keyframes grid-tower-pulse-animation {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; filter: drop-shadow(0 0 2px var(--flow-dot-glow)); }
+}
+
+.spin-slow {
+  animation: spin-slow 4s linear infinite;
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Thin premium scrollbar for the AI agent chat */
+.scrollbar-agent::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-agent::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-agent::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+.scrollbar-agent::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.scrollbar-agent {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+/* Force Plotly ModeBar to be horizontal and position it at the top */
+.js-plotly-plot .plotly .modebar {
+    flex-direction: row !important;
+    margin-top: -10px !important;
+}
+.js-plotly-plot .plotly .modebar-group {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
