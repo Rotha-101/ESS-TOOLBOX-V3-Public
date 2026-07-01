@@ -1148,7 +1148,7 @@ export function generatePortableViewHtml(
             applyTrace({ y: (evalDataRaw.vbc?.[pk] || []) || [], type: 'scattergl', mode: 'lines', name: 'Vbc', line: { color: '#77AC30', width: 1.2 } }, 1),
             applyTrace({ y: (evalDataRaw.vca?.[pk] || []) || [], type: 'scattergl', mode: 'lines', name: 'Vca', line: { color: '#7E2F8E', width: 1.2 } }, 2),
             applyTrace({ y: (evalDataRaw.qTotal?.[pk] || []), type: 'scattergl', mode: 'lines', name: 'Q total', yaxis: 'y2', line: { color: '#D95319', width: 1.3 } }, 3),
-            applyTrace({ y: (evalDataRaw.cmdQ?.[pk] || []), type: 'scattergl', mode: 'lines', name: ((evalDataRaw.cmdQ?.[pk] || []) || []).some((v) => v != null && !isNaN(v)) ? 'Q command from NCC' : 'Q command from NCC (No Data)', yaxis: 'y2', line: { color: '#000000', width: 1.8 } }, 4)
+            applyTrace({ y: (evalDataRaw.cmdQ?.[pk] || []), type: 'scattergl', mode: 'lines', name: ((evalDataRaw.cmdQ?.[pk] || []) || []).some((v) => v != null && !isNaN(v)) ? 'Q command from NCC' : 'Q command from NCC (No Data)', yaxis: 'y2', line: { color: '#000000', width: 1.8, shape: 'hv' } }, 4)
           ], getMATLABLayout('Reactive Power & Voltage', 'V (kV)', 'Q (MVar)', centeredYLim([(evalDataRaw.qTotal?.[pk] || []), (evalDataRaw.cmdQ?.[pk] || []), evalDataRaw.qBess && (evalDataRaw.qBess?.[pk] || [])], 0), [20, 24], 'fig4_vq_' + pk), 'fig4_vq_' + pk);
         });
       } else if (activeMetric === 'fig5') {

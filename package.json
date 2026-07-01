@@ -9,7 +9,7 @@
     "appId": "com.esstoolbox.v1.rotha",
     "productName": "ESS Toolbox V1",
     "directories": {
-      "output": "dist-electron-v2"
+      "output": "Release"
     },
     "files": [
       "dist/**/*",

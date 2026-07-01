@@ -170,6 +170,7 @@ axs = [];
 
   const footerCode = (safeName: string) => `
 if SAVE_FIG_AND_CLOSE
+    set(fig, 'Visible', 'on');
     savefig(fig, '${safeName}.fig');
     close(fig);
 end
